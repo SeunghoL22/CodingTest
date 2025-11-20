@@ -1,0 +1,76 @@
+#include <string>
+#include <vector>
+#include <numeric>
+
+using namespace std;
+
+
+int solution(vector<int> queue1, vector<int> queue2) {
+
+    /*
+    자료 구조 선언
+    1. 두 큐의 합을 각각 long long으로 관리한다
+    2. 두 큐를 하나의 큐로 볼 all_q 선언하고 투포인터 벡터로 관리
+    */ 
+    long long sum1 = accumulate(queue1.begin(), queue1.end(), 0LL);
+    long long sum2 = accumulate(queue2.begin(), queue2.end(), 0LL);
+
+    vector<int> allQ = queue1;
+    allQ.insert(allQ.end(), queue2.begin(), queue2.end());
+    
+    // 큐 사이즈
+    int n = queue1.size();
+    int totalSize = allQ.size(); // 2N
+    
+    // 인덱스 설정
+    int idx1 = 0; //n-1까지
+    int idx2 = n; //2n-1까지
+
+    // 초과방지 및 정답 카운터 변수
+    int count=0;
+    int limit = 4*n;
+
+
+    /*
+    엣지 케이스
+    1. 전체합이 짝수가 아니면 어차피 불가능하다
+    */ 
+    long long totalSum = sum1 + sum2;
+    if (totalSum % 2 != 0) return -1;
+
+    /*
+    메인 메서드
+    target 선언, totalSum의 절반에 도달하면 성공
+
+    for구문으로 limit를 4N으로 두고 투포인터 연산한다
+    만약 도중에 답을 찾으면 count(answer)을 return;
+    */ 
+
+    long long targetSum = totalSum / 2;
+
+    // 리미트까지 돌면 포기해라
+    while(count <= limit)
+    {   
+        // 반복문의 종료 조건(찾았을 때)
+        if (sum1 == targetSum) return count;
+
+        // sum1 targetSum보다 작아서- idx2을 뒤로 밀게 되는 경우부터 처리
+        if(sum1 < targetSum)
+        {
+            sum1 += allQ[idx2 % totalSize];
+            ++idx2;
+        }
+        else // targetSum보다 sum1이 크다면, idx1을 뒤로 민다
+        {
+            sum1 -= allQ[idx1 % totalSize];
+            ++idx1;
+        }
+
+        ++count;
+    }
+
+    // 위짓의 다했는데 못찾으면 fail 리턴
+    return -1;
+
+    return count;
+}
