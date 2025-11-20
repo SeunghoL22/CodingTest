@@ -1,3 +1,6 @@
+// https://school.programmers.co.kr/learn/courses/30/lessons/118667
+// 두 큐의 합 같게 만들기 [2022 KAKAO TECH INTERNSHIP]
+
 #include <string>
 #include <vector>
 #include <numeric>
