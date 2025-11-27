@@ -1,3 +1,7 @@
+// https://school.programmers.co.kr/learn/courses/30/lessons/86052
+// 월간 코드 챌린지 시즌3 빛의 경로 사이클
+
+
 #include <string>
 #include <vector>
 #include <algorithm>
