@@ -1,0 +1,7 @@
+-- https://school.programmers.co.kr/learn/courses/30/lessons/144854
+-- 조건에 맞는 도서와 저자 리스트 출력하기 level 2
+
+SELECT A.BOOK_ID, B.AUTHOR_NAME, TO_CHAR(A.PUBLISHED_DATE, 'YYYY-MM-DD') AS PUBLISHED_DATE
+FROM BOOK A INNER JOIN AUTHOR B ON A.AUTHOR_ID = B.AUTHOR_ID
+WHERE A.CATEGORY = '경제'
+ORDER BY A.PUBLISHED_DATE ASC
